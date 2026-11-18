@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Administrasi Wali Kelas</title>
+<meta name="description" content="Absensi, data siswa, permasalahan, dan rapot untuk wali kelas.">
+<meta name="theme-color" content="#6D4AFF">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Wali Kelas">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="./css/styles.css?v=3.0.0">
+</head>
+<body>
+<div id="ld" class="ld" aria-label="Memuat"><div class="sp"></div><small style="position:absolute;bottom:14px;color:#A5A2C2;font:11px monospace">v3.0</small></div>
+<noscript><p style="padding:24px;font-family:sans-serif">Aplikasi ini membutuhkan JavaScript. Aktifkan JavaScript di browser Anda.</p></noscript>
+<div id="netOff" class="net-off" role="status" aria-live="polite">Anda sedang offline. Data tersimpan terakhir tetap bisa dilihat.</div>
+<aside class="sb" id="sb">
+  <div class="br"><div class="lg"><i class="bi bi-mortarboard-fill"></i></div><div><b>Wali Kelas</b><small>Sistem Administrasi Guru</small></div></div>
+  <button class="kb" id="kb" onclick="nav('kelas')" aria-label="Buka Daftar Kelas"></button>
+  <nav id="nv" aria-label="Menu utama"></nav>
+</aside>
+<div class="mn">
+  <header class="tp">
+    <label class="sr"><i class="bi bi-search"></i><input id="gq" type="search" placeholder="Cari siswa (nama / NISN)..." aria-label="Cari siswa" oninput="gcari(this.value)"></label>
+    <button type="button" id="btnInstall" class="pwa-ib" aria-label="Pasang aplikasi di perangkat"><i class="bi bi-download"></i><span>Pasang</span></button>
+    <div id="wu" class="wu"></div>
+  </header>
+  <main id="ct">
+    <div id="bnr"></div>
+    <button class="kb kb-m" id="kbm" onclick="nav('kelas')" aria-label="Buka Daftar Kelas"></button>
+    <section id="s-kelas" class="sec"></section>
+    <section id="s-beranda" class="sec on"></section>
+    <section id="s-siswa" class="sec"></section>
+    <section id="s-absensi" class="sec"></section>
+    <section id="s-masalah" class="sec"></section>
+    <section id="s-profil" class="sec"></section>
+    <section id="s-rapot" class="sec"></section>
+    <section id="s-estafet" class="sec"></section>
+    <section id="s-pengaturan" class="sec"></section>
+    <section id="s-admin" class="sec"></section>
+  </main>
+</div>
+<nav class="bn" id="bn" aria-label="Menu bawah"></nav>
+<div id="pwaTip" class="pwa-tip" role="dialog" aria-label="Panduan pasang aplikasi"></div>
+<div id="au" class="au"></div>
+<div id="md" class="md"></div>
+<div id="tt" class="tt" role="status" aria-live="polite"></div>
+<script>
+/* Penampil galat dini: tetap jalan walau skrip utama rusak */
+window.addEventListener('error',function(e){var l=document.getElementById('ld');if(!l||!e.message)return;l.className='ld';
+l.innerHTML='<div style="text-align:center;max-width:460px;padding:20px;font-family:sans-serif"><b style="font-size:18px">Aplikasi gagal dimuat</b><p style="margin:10px 0;color:#6B6890;word-break:break-word">'+String(e.message).replace(/</g,'&lt;')+' ('+String(e.filename||'').split('/').pop()+':'+e.lineno+')</p><button onclick="location.reload()" style="padding:10px 18px;border:0;border-radius:12px;background:#6D4AFF;color:#fff;font-size:14px">Muat ulang</button></div>'});
+</script>
+<script src="./js/config.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script defer src="./js/gas-client.js?v=3.0.0"></script>
+<script defer src="./js/pwa.js?v=3.0.0"></script>
+<script defer src="./js/app.js?v=3.0.0"></script>
+</body>
+</html>
