@@ -116,14 +116,24 @@ function openForm(t,fs,v,save){S.fs=fs;S.sv=save;
   $('md').innerHTML=`<div class="bk" onclick="closeM()"></div><form class="dr" onsubmit="return submitF(event)"><div class="dh"><b>${esc(t)}</b><button type="button" class="ib" aria-label="Tutup" onclick="closeM()"><i class="bi bi-x-lg"></i></button></div><div class="db">${fs.map(f=>fld(f,v[f.k])).join('')}</div><div class="df"><button type="button" class="bt ol" onclick="closeM()">Batal</button><button class="bt pr">Simpan</button></div></form>`;
   $('md').classList.add('on')}
 function submitF(e){e.preventDefault();const o={};S.fs.forEach(f=>o[f.k]=$('f_'+f.k).value.trim());S.sv(o);return false}
-/** Jendela geser-siswa (Detail/Rekap/Masalah/Rapot): bila jendela sudah terbuka, ganti isi panel SAJA (latar buram & animasi masuk tidak dibuat ulang) agar pindah siswa tidak berkedip; posisi gulir dipertahankan. */
+/** Pembanding DOM: samakan isi elemen lama dengan yang baru TANPA membuat ulang bagian yang tidak berubah (yang berubah hanya teks/atribut yang memang beda). */
+function morphKids(a,b){const A=Array.from(a.childNodes),B=Array.from(b.childNodes);
+  for(let i=0;i<B.length;i++){if(!A[i])a.appendChild(B[i].cloneNode(true));else morphNode(A[i],B[i])}
+  for(let i=A.length-1;i>=B.length;i--)a.removeChild(A[i])}
+function morphNode(x,y){
+  if(x.nodeType!==y.nodeType||x.nodeName!==y.nodeName){x.parentNode.replaceChild(y.cloneNode(true),x);return}
+  if(x.nodeType!==1){if(x.nodeValue!==y.nodeValue)x.nodeValue=y.nodeValue;return}
+  Array.from(x.attributes).forEach(t=>{if(!y.hasAttribute(t.name))x.removeAttribute(t.name)});
+  Array.from(y.attributes).forEach(t=>{if(x.getAttribute(t.name)!==t.value)x.setAttribute(t.name,t.value)});
+  if(x.nodeName==='INPUT'&&x.value!==y.getAttribute('value'))x.value=y.getAttribute('value')||'';
+  morphKids(x,y)}
+/** Jendela geser-siswa (Detail/Rekap/Masalah/Rapot): bila jendela sudah terbuka, panel TIDAK dibuat ulang; hanya bagian yang berbeda (nama, angka, kalender) yang diperbarui, jadi pindah siswa tidak berkedip dan tidak bergeser. */
 const MD={set h(v){const m=$('md'),od=m.classList.contains('on')&&m.querySelector('.bk')&&m.querySelector('.dr');
   if(!od){m.innerHTML=v;return}
   const t=document.createElement('div');t.innerHTML=v;const nd=t.querySelector('.dr');
   if(!nd){m.innerHTML=v;return}
-  const db=od.querySelector('.db'),sc=db?db.scrollTop:0;
-  od.className=nd.className;od.innerHTML=nd.innerHTML;
-  const nb=od.querySelector('.db');if(nb)nb.scrollTop=sc}};
+  if(od.nodeName!==nd.nodeName){m.innerHTML=v;return}
+  od.className=nd.className;morphKids(od,nd)}};
 function closeM(){$('md').classList.remove('on');$('md').innerHTML=''}
 function ask(m,fn,lbl){S.ok=fn;$('md').innerHTML=`<div class="bk" onclick="closeM()"></div><div class="dg" role="alertdialog"><p>${esc(m)}</p><div class="row"><button class="bt ol" onclick="closeM()">Batal</button><button class="bt pr" style="background:#BA1A1A" onclick="closeM();S.ok()">${esc(lbl||'Hapus')}</button></div></div>`;$('md').classList.add('on')}
 

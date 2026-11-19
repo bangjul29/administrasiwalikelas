@@ -3,8 +3,8 @@
  * - Pustaka CDN & font: cache-first (jarang berubah, versi terkunci)
  * - Permintaan ke Google Apps Script: SELALU langsung ke jaringan, tidak pernah dari cache (data & token)
  * Naikkan VER setiap rilis agar cache lama dibersihkan. */
-const VER = 'wk-v3.0.1';
-const SHELL = ['./', './index.html', './css/styles.css?v=3.0.1', './js/config.js', './js/gas-client.js?v=3.0.1', './js/pwa.js?v=3.0.1', './js/app.js?v=3.0.1', './manifest.json', './icons/icon-192.png', './icons/icon-512.png'];
+const VER = 'wk-v3.0.2';
+const SHELL = ['./', './index.html', './css/styles.css?v=3.0.2', './js/config.js', './js/gas-client.js?v=3.0.2', './js/pwa.js?v=3.0.2', './js/app.js?v=3.0.2', './manifest.json', './icons/icon-192.png', './icons/icon-512.png'];
 const CDN = /(^|\.)(cdn\.jsdelivr\.net|fonts\.googleapis\.com|fonts\.gstatic\.com)$/;
 
 self.addEventListener('install', e => {
